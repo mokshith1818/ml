@@ -1,15 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
 
-X = np.arange(1,11).reshape(-1,1)
-y = [0,0,0,0,0,1,1,1,1,1]
+X = np.array([[2,65,50],[3,70,55],[4,72,60],[5,75,65],[6,80,70],[7,82,75],[8,85,80],[9,90,85],[10,92,88]])
+y = [48,55,61,67,74,79,85,91,95]
 
-m = LogisticRegression().fit(X,y)
-h = float(input("Hours: "))
-p = m.predict_proba([[h]])[0,1]
-print("PASS" if p>=0.5 else "FAIL")
+m = LinearRegression().fit(X,y)
+h,a,s = float(input("Hours: ")),float(input("Attendance: ")),float(input("Assignment: "))
+p = m.predict([[h,a,s]])
+print("Marks:",p[0])
 
-plt.scatter(X,y)
-plt.plot(X,m.predict_proba(X)[:,1],'r')
+plt.scatter(m.predict(X),y)
+plt.plot(y,y,'r')
 plt.show()
